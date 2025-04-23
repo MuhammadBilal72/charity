@@ -2,13 +2,14 @@ const Campaign = require("../models/Campaigns.js");
 
 // Create a new campaign
 const createCampaign = async (req, res) => {
-  const { title, description, goalAmount, image } = req.body;
+  let { title, description, goal, image } = req.body;
+  goal = parseInt(goal);
 
   try {
     const campaign = await Campaign.create({
       title,
       description,
-      goalAmount,
+      goal,
       image,
       createdBy: req.user.id,
     });
@@ -79,16 +80,16 @@ const deleteCampaign = async (req, res) => {
   try {
     const campaign = await Campaign.findById(req.params.id);
     if (!campaign) return res.status(404).json({ message: "Campaign not found" });
-
+  
     if (campaign.createdBy.toString() !== req.user.id && req.user.role !== "admin") {
       return res.status(403).json({ message: "Not authorized" });
     }
-
-    await campaign.remove();
+  
+    await campaign.deleteOne(); // ✅ Modern and recommended
     res.json({ message: "Campaign deleted" });
   } catch (err) {
     res.status(500).json({ message: "Error deleting campaign" });
-  }
+  }  
 };
 // POST /api/campaigns/:id/donate
 const donateToCampaign = async (req, res) => {

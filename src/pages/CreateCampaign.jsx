@@ -93,10 +93,10 @@ const CampaignDetail = () => {
             placeholder="Campaign Description"
           />
           <input
-            name="targetAmount"
+            name="goal"
             type="number"
-            value={form.targetAmount}
-            onChange={(e) => setForm({ ...form, targetAmount: e.target.value })}
+            value={form.goal}
+            onChange={(e) => setForm({ ...form, goal: e.target.value })}
             className="w-full mb-3 px-4 py-2 border rounded"
             placeholder="Target Amount"
           />
@@ -124,7 +124,7 @@ const CampaignDetail = () => {
           <h2 className="text-2xl font-bold mb-2">{campaign.title}</h2>
           <p className="mb-3">{campaign.description}</p>
           <img src="https://cleverads.com.ph/blog/wp-content/uploads/2023/03/Campaign_la_gi_6_loai_hinh_Campaign_co_ban-768x512-1.webp" alt="Campaign" className="w-full rounded mb-4" />
-          <p><strong>Target:</strong> ₹{campaign.targetAmount}</p>
+          <p><strong>Target:</strong> ₹ {campaign.goal}</p>
           <p><strong>End Date:</strong> {new Date(campaign.endDate).toLocaleDateString()}</p>
         </>
       )}
