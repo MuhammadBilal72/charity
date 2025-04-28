@@ -44,13 +44,16 @@ const deleteUser = async (req, res) => {
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    await user.remove();
+    await User.deleteOne({ _id: req.params.id }); // <-- Correct way to delete
+
     res.json({ message: "User deleted" });
   } catch (err) {
+    console.error("Error deleting user:", err); // Make error logs meaningful
     res.status(500).json({ message: "Failed to delete user" });
   }
 };
 
+// Get the logged-in user's profile 
 const getUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password"); // Assuming user ID is stored in the request after authentication

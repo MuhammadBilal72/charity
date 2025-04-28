@@ -10,6 +10,7 @@ const AdminEditUser = () => {
   const [user, setUser] = useState({ name: "", email: "", role: "user" });
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // New state for modal visibility
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,7 +34,6 @@ const AdminEditUser = () => {
         email: user.email,
         role: user.role,
       });
-      // alert("User updated!");
       toast.success("User updated successfully!");
       navigate("/admin/users");
     } catch (err) {
@@ -44,16 +44,18 @@ const AdminEditUser = () => {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
       await API.delete(`/users/${id}`);
-      // alert("User deleted.");
       toast.success("User deleted successfully!");
       navigate("/admin/users");
     } catch (err) {
-      console.error("Delete failed", err);
+      console.error("Delete failed", err.response?.data || err.message);
+      toast.error(` ${err.response?.data?.message || err.message}`);
     }
   };
+
+  const closeDeleteModal = () => setShowDeleteModal(false);
+  const openDeleteModal = () => setShowDeleteModal(true);
 
   if (loading) return <div className="text-center mt-10">Loading user info...</div>;
 
@@ -97,11 +99,38 @@ const AdminEditUser = () => {
         </button>
         <button
           className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-          onClick={handleDelete}
+          onClick={openDeleteModal}
         >
           Delete
         </button>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 backdrop-blur bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white border-2 border-red-500 rounded-lg p-6 w-80 text-center">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">Confirm Deletion</h2>
+            <p className="text-gray-600 mb-6">Are you sure you want to delete this user?</p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={closeDeleteModal}
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  handleDelete();
+                  closeDeleteModal();
+                }}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Confirm Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -10,7 +10,7 @@ const {
 const { protect, adminOnly } = require("../middleware/authMiddleware");
 
 router.get("/", protect, adminOnly, getAllUsers);
-router.get("/:id", protect, adminOnly, getUserById);
+router.get("/:id", protect,adminOnly, getUserById);
 router.put("/:id", protect, adminOnly, updateUser);
 router.delete("/:id", protect, adminOnly, deleteUser);
 

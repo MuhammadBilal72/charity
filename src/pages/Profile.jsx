@@ -8,11 +8,12 @@ const Profile = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await API.get("/users/profile");
+        const res = await API.get(`/users/profile/`);
         setUser({ email: res.data.email, contact: res.data.contact });
       } catch (err) {
         console.error("Failed to load profile", err);
@@ -20,6 +21,7 @@ const Profile = () => {
     };
     fetchProfile();
   }, []);
+  console.log("user",user);
 
   const handleUpdate = async () => {
     if (password && password !== confirmPassword) {

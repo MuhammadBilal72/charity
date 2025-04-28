@@ -1,6 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/admin/users");
+  }
   return (
     <div className="max-w-5xl mx-auto mt-10">
       <h2 className="text-3xl font-bold text-center text-green-700 mb-8">
@@ -24,6 +29,11 @@ const AdminDashboard = () => {
         <div className="bg-white p-6 rounded shadow">
           <h3 className="text-lg font-semibold mb-3 text-gray-700">User Requests</h3>
           <p className="text-gray-600">Respond to volunteer and donation requests.</p>
+        </div>
+        
+        <div onClick={handleClick} className="bg-white p-6 rounded shadow">
+          <h3 className="text-lg font-semibold mb-3 text-gray-700">User List</h3>
+          <p className="text-gray-600">Edit or delete Users.</p>
         </div>
       </div>
     </div>
