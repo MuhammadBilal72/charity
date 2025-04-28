@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../utils/axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [user, setUser] = useState({ email: "", contact: "" });
@@ -22,7 +23,8 @@ const Profile = () => {
 
   const handleUpdate = async () => {
     if (password && password !== confirmPassword) {
-      alert("Passwords do not match!");
+      // alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
@@ -31,7 +33,8 @@ const Profile = () => {
         contact: user.contact,
         ...(password && { password }),
       });
-      alert("Profile updated successfully");
+      // alert("Profile updated successfully");
+      toast.success("Profile updated successfully!");
       navigate("/dashboard");
     } catch (err) {
       console.error("Failed to update profile", err);

@@ -95,6 +95,10 @@ const deleteCampaign = async (req, res) => {
 const donateToCampaign = async (req, res) => {
     const { id } = req.params;
     const { amount, donorName } = req.body;
+    console.log("donorName", donorName);
+    console.log("amount", amount);
+    console.log("id", id);
+    console.log("req.body", req.body);
   
     try {
       const campaign = await Campaign.findById(id);

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const mockCampaigns = {
   "1": {
@@ -28,7 +29,8 @@ const DonateForm = () => {
     console.log(`Donated ₹${amount} to ${campaign.title}`);
 
     // ✅ Redirect to Admin Campaigns page
-    alert("Donation successful!");
+    // alert("Donation successful!");
+    toast.success("Donation successful!");
     navigate("/admin/campaigns");
   };
 

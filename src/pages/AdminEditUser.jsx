@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../utils/axios";
+import { toast } from "react-toastify";
 
 const AdminEditUser = () => {
   const { id } = useParams();
@@ -32,7 +33,8 @@ const AdminEditUser = () => {
         email: user.email,
         role: user.role,
       });
-      alert("User updated!");
+      // alert("User updated!");
+      toast.success("User updated successfully!");
       navigate("/admin/users");
     } catch (err) {
       console.error("Update error", err);
@@ -45,7 +47,8 @@ const AdminEditUser = () => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
       await API.delete(`/users/${id}`);
-      alert("User deleted.");
+      // alert("User deleted.");
+      toast.success("User deleted successfully!");
       navigate("/admin/users");
     } catch (err) {
       console.error("Delete failed", err);

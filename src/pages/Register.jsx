@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import API from "../utils/axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { login } = useContext(AuthContext);
@@ -19,7 +20,8 @@ const Register = () => {
       login(res.data);
       navigate("/dashboard");
     } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+      // alert(err.response?.data?.message || "Registration failed");
+      toast.error(err.response?.data?.message || "Registration failed");
     }
   };
 

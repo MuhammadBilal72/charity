@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../utils/axios";
+import { toast } from "react-toastify";
 
 const AdminCampaignView = () => {
   const { id } = useParams();
@@ -37,7 +38,8 @@ const AdminCampaignView = () => {
         description: campaign.description,
         goalAmount: campaign.goalAmount,
       });
-      alert("Campaign updated!");
+      // alert("Campaign updated!");
+      toast.success("Campaign updated successfully!");
       navigate("/admin/campaigns");
     } catch (err) {
       console.error("Update failed", err);
@@ -50,7 +52,8 @@ const AdminCampaignView = () => {
     if (!window.confirm("Are you sure you want to delete this campaign?")) return;
     try {
       await API.delete(`/campaigns/${id}`);
-      alert("Campaign deleted.");
+      // alert("Campaign deleted.");
+      toast.success("Campaign deleted successfully!");
       navigate("/admin/campaigns");
     } catch (err) {
       console.error("Delete error", err);

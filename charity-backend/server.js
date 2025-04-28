@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const campaignRoutes = require('./routes/campaignRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const adminUserRoutes = require('./routes/adminUserRoutes');
 const corsOptions = {
   origin: 'http://localhost:5173', // Frontend URL (replace with your actual frontend URL)
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -26,6 +27,7 @@ connectDB();
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/campaigns', campaignRoutes);
+app.use('/api/users', adminUserRoutes);
 app.use('/api/users/profile', profileRoutes);
 
 // Start server

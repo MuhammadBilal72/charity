@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import API from "../utils/axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -14,9 +15,11 @@ const Login = () => {
     try {
       const res = await API.post("/auth/login", { email, password });
       login(res.data);
+      toast.success("Login successful!");
       navigate("/dashboard");
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      // alert(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || "Login failed");
     }
   };
 

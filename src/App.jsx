@@ -19,6 +19,8 @@ import AdminCampaignList from "./pages/AdminCampaignList";
 import AdminCampaignView from "./pages/AdminCampaignView";
 import CampaignDetail from "./pages/CreateCampaign";
 import Profile from "./pages/Profile";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./index.css";
 import "./App.css";
@@ -26,6 +28,17 @@ import "./App.css";
 function App() {
   return (
     <AuthProvider>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Router>
         <Header />
         <Routes>
